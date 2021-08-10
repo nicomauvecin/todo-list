@@ -19,9 +19,15 @@ const $btnDelete = $app.querySelector('.btn');
 
 const $divButtons = $app.querySelector('.buttons');
 const $btnDeleteAll = $app.querySelector('.btn-delete');
-let allToDo = [];
+
+let allToDo = JSON.parse(localStorage.getItem('todo')) || [];
+
+function guardarEnLocalStorage(todo) {
+  localStorage.setItem('todo', JSON.stringify(todo));
+}
 
 function manejarEventos() {
+  renderizarToDos(allToDo);
   $form.addEventListener('submit', agregarToDo);
   $todoList.addEventListener('click', borrarToDo);
   $todoList.addEventListener('change', checkearToDo);
@@ -44,6 +50,7 @@ function agregarToDo(e) {
   ];
 
   renderizarToDos(allToDo);
+  guardarEnLocalStorage(allToDo);
   $input.value = '';
 }
 
@@ -52,6 +59,7 @@ function borrarToDo(e) {
     const id = parseInt(e.target.parentNode.dataset.id);
     allToDo.splice(id, 1);
     renderizarToDos(allToDo);
+    guardarEnLocalStorage(allToDo);
   }
 }
 
@@ -67,12 +75,14 @@ function checkearToDo(e) {
   }
 
   manejarBtnDeleteToDos();
+  guardarEnLocalStorage(allToDo);
 }
 
 function eliminarTareasRealizadas() {
   let filtro = allToDo.filter((value) => value.completo != true);
   allToDo = [...filtro];
   renderizarToDos(allToDo);
+  guardarEnLocalStorage(allToDo);
 }
 
 function manejarBtnDeleteToDos() {

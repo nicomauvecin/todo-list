@@ -18,6 +18,7 @@ let allToDo = [];
 function manejarEventos() {
   $form.addEventListener('submit', agregarToDo);
   $todoList.addEventListener('click', borrarToDo);
+  $todoList.addEventListener('change', checkearToDo);
 }
 
 function agregarToDo(e) {
@@ -45,6 +46,15 @@ function borrarToDo(e) {
     allToDo.splice(id, 1);
     renderizarToDos(allToDo);
   }
+}
+
+function checkearToDo(e) {
+  const toDo = e.target.parentNode;
+  const id = toDo.dataset.id;
+  const $tarea = toDo.querySelector('p');
+  $tarea.classList.toggle('checked');
+
+  allToDo[id].completo = true;
 }
 
 function renderizarToDos(toDo) {

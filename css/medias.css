@@ -1,0 +1,26 @@
+@media (max-width: 600px){
+    .wrapper {
+        max-width: 350px;
+    }
+    .app {
+        max-width: 350px;
+    }
+
+    .todo-input input {
+        width: 300px;
+    }
+
+    .todo-input button {
+        position: relative;
+        right: 55px;
+    }
+
+    .btn {
+        width: 30px;
+        height: 30px;
+    }
+
+    .todo {
+        grid-template-columns: 40px 250px 60px;
+    }
+}

@@ -132,5 +132,24 @@ body {
 
 .checked {
   text-decoration: line-through;
-  color:rgba(0, 0, 0, 0.5)
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ff9800;
+}
+
+.btn-delete {
+  border-radius: 25px;
+  height: 40px;
+  width: 300px;
+  font-size: 16px;
+  margin: 15px;
+}
+
+.oculto {
+  display: none;
 }

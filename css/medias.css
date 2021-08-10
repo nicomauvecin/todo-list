@@ -23,4 +23,12 @@
     .todo {
         grid-template-columns: 40px 250px 60px;
     }
+
+    .btn-delete {
+        border-radius: 25px;
+        height: 40px;
+        width: 300px;
+        font-size: 16px;
+        margin: 15px;
+      }
 }

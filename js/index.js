@@ -60,8 +60,12 @@ function checkearToDo(e) {
   const id = toDo.dataset.id;
   const $tarea = toDo.querySelector('p');
   $tarea.classList.toggle('checked');
+  if ($tarea.classList.contains('checked')) {
+    allToDo[id].completo = true;
+  } else {
+    allToDo[id].completo = false;
+  }
 
-  allToDo[id].completo = true;
   manejarBtnDeleteToDos();
 }
 

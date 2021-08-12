@@ -1,34 +1,38 @@
-@media (max-width: 600px){
-    .wrapper {
-        max-width: 350px;
-    }
-    .app {
-        max-width: 350px;
-    }
+@media (max-width: 600px) {
+  .wrapper {
+    max-width: 350px;
+  }
+  .app {
+    max-width: 350px;
+  }
 
-    .todo-input input {
-        width: 300px;
-    }
+  .todo-input input {
+    width: 300px;
+  }
 
-    .todo-input button {
-        position: relative;
-        right: 55px;
-    }
+  .todo-input button {
+    position: relative;
+    right: 55px;
+  }
 
-    .btn {
-        width: 30px;
-        height: 30px;
-    }
+  .btn {
+    width: 30px;
+    height: 30px;
+  }
 
-    .todo {
-        grid-template-columns: 40px 250px 60px;
-    }
+  .todo {
+    grid-template-columns: 40px 250px 60px;
+  }
 
-    .btn-delete {
-        border-radius: 25px;
-        height: 40px;
-        width: 300px;
-        font-size: 16px;
-        margin: 15px;
-      }
+  .btn-delete {
+    border-radius: 25px;
+    height: 40px;
+    width: 300px;
+    font-size: 16px;
+    margin: 15px;
+  }
+
+  .todo input[type='text'] {
+    width: 200px;
+  }
 }

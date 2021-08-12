@@ -31,6 +31,7 @@ function manejarEventos() {
   $form.addEventListener('submit', agregarToDo);
   $todoList.addEventListener('click', borrarToDo);
   $todoList.addEventListener('change', checkearToDo);
+  $todoList.addEventListener('dblclick', editarToDo);
   $btnDeleteAll.addEventListener('click', eliminarTareasRealizadas);
 }
 
@@ -52,6 +53,7 @@ function agregarToDo(e) {
   renderizarToDos(allToDo);
   guardarEnLocalStorage(allToDo);
   $input.value = '';
+  $input.focus();
 }
 
 function borrarToDo(e) {
@@ -66,7 +68,7 @@ function borrarToDo(e) {
 function checkearToDo(e) {
   const toDo = e.target.parentNode;
   const id = toDo.dataset.id;
-  const $tarea = toDo.querySelector('p');
+  const $tarea = toDo.querySelector('span');
   $tarea.classList.toggle('checked');
   if ($tarea.classList.contains('checked')) {
     allToDo[id].completo = true;
@@ -76,6 +78,51 @@ function checkearToDo(e) {
 
   manejarBtnDeleteToDos();
   guardarEnLocalStorage(allToDo);
+}
+
+function editarToDo(e) {
+  if (e.target.nodeName.toLowerCase() != 'span') {
+    return;
+  }
+  const tarea = e.target.parentNode;
+  const id = parseInt(tarea.dataset.id);
+  const tareaSeleccionada = allToDo[id].tarea;
+  if (allToDo[id].completo) {
+    return;
+  }
+  const spanTarea = tarea.querySelector('span');
+
+  const INPUT = document.createElement('input');
+  INPUT.type = 'text';
+  INPUT.value = tareaSeleccionada;
+  tarea.replaceChild(INPUT, spanTarea);
+  INPUT.focus();
+
+  INPUT.addEventListener('change', (e) => {
+    const tarea = e.target.value;
+    e.stopPropagation();
+    if (tarea != tareaSeleccionada) {
+      allToDo = allToDo.map((todo, index) => {
+        if (id === index) {
+          return {
+            ...todo,
+            tarea,
+          };
+        }
+        return todo;
+      });
+      renderizarToDos(allToDo);
+      guardarEnLocalStorage(allToDo);
+    }
+    e.target.display = '';
+  });
+
+  INPUT.addEventListener('blur', (e) => {
+    e.target.display = '';
+    const SPAN = document.createElement('span');
+    SPAN.innerText = tareaSeleccionada;
+    tarea.replaceChild(SPAN, INPUT);
+  });
 }
 
 function eliminarTareasRealizadas() {
@@ -107,7 +154,7 @@ function renderizarToDos(toDo) {
       toDoHtml += `
         <div class="todo" data-id="${index}">
           <input type="checkbox" id="todo-check" checked/>
-          <p class="checked" >${value.tarea}</p>
+          <span class="checked" >${value.tarea}</span>
           <button class="btn">-</button>
         </div>
         `;
@@ -115,7 +162,7 @@ function renderizarToDos(toDo) {
       toDoHtml += `
         <div class="todo" data-id="${index}">
           <input type="checkbox" id="todo-check" />
-          <p>${value.tarea}</p>
+          <span>${value.tarea}</span>
           <button class="btn">-</button>
         </div>
         `;
